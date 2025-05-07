@@ -1,0 +1,15 @@
+stages:
+  - validate
+  - deploy
+
+validate:
+  stage: validate
+  script:
+    - kubectl apply -f auth-service/auth-deployment.yaml --dry-run=client
+
+deploy:
+  stage: deploy
+  script:
+    - kubectl apply -f auth-service/auth-deployment.yaml
+  only:
+    - main
